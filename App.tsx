@@ -1,20 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import Header from "./components/Header";
+import BottomTab from "./components/BottomTab";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import MeetView from "./components/MeetView";
+
+const Colors = {
+  primaryBg: "#0f172a",
+};
+
+const { width, height } = Dimensions.get("screen");
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar
+          barStyle={"light-content"}
+          backgroundColor={Colors.primaryBg}
+        />
+        <View style={{ height: height, flex: 1 }}>
+          <Header />
+          <View style={{ flex: 1 }}>
+            <MeetView />
+          </View>
+          <View style={{ marginTop: "auto" }}>
+            <BottomTab />
+          </View>
+        </View>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: Colors.primaryBg,
+    // paddingTop: StatusBar.currentHeight,
   },
 });
