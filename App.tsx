@@ -10,12 +10,11 @@ import Header from "./components/Header";
 import BottomTab from "./components/BottomTab";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import MeetView from "./components/MeetView";
+import { height } from "./constants";
 
 const Colors = {
   primaryBg: "#0f172a",
 };
-
-const { width, height } = Dimensions.get("screen");
 
 export default function App() {
   return (
