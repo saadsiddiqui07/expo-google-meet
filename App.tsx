@@ -71,8 +71,8 @@ export default function App() {
         translateX.value = withSpring(-width * 0.3);
       } else {
         // DEFAULT POSITION
-        translateY.value = withSpring(0);
-        translateX.value = withSpring(0);
+        translateY.value = withSpring(containerHeight * 0.3);
+        translateX.value = withSpring(width * 0.3);
       }
     });
 
@@ -142,11 +142,22 @@ export default function App() {
                   >
                     Saad
                   </Text>
-                  <Ionicons
-                    name="ellipsis-vertical-outline"
-                    size={12}
-                    color={"white"}
-                  />
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={{
+                      backgroundColor: "#64748b",
+                      padding: 8,
+                      borderRadius: 999,
+                      alignSelf: "center",
+                      marginLeft: "auto",
+                    }}
+                  >
+                    <Ionicons
+                      name="ellipsis-vertical-sharp"
+                      size={18}
+                      color={"white"}
+                    />
+                  </TouchableOpacity>
                 </View>
               </Animated.View>
             </GestureDetector>
