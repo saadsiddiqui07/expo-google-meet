@@ -1,16 +1,14 @@
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import React from "react";
-import {
-  Gesture,
-  GestureDetector,
-  PanGestureHandler,
-} from "react-native-gesture-handler";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
 import { height, width } from "../constants";
+
+const containerHeight = height * 0.7;
 
 const MeetView = () => {
   const translateX = useSharedValue(0);
@@ -24,11 +22,40 @@ const MeetView = () => {
       }
     })
     .onFinalize((event) => {
-      // right bottom --> X = w * 0.25, Y = h * 0.25       // right top --> X = w * 0.25, Y = -h * 0.25
-      // left bottom --> X = -w * 0.25, Y = h * 0.25   // top left --> X = -w * 0.25, Y = -h * 0.25
-      translateX.value = withSpring(0);
-      translateY.value = withSpring(0);
-    });
+      if (
+        event.translationY > containerHeight * 0.1 &&
+        event.translationX > width * 0.1
+      ) {
+        // RIGHT BOTTOM
+        translateY.value = withSpring(containerHeight * 0.4);
+        translateX.value = withSpring(width * 0.25);
+      } else if (
+        event.translationY > containerHeight * 0.1 &&
+        event.translationX < -width * 0.1
+      ) {
+        // LEFT BOTTOM
+        translateY.value = withSpring(containerHeight * 0.4);
+        translateX.value = withSpring(-width * 0.25);
+      } else if (
+        event.translationY < -containerHeight * 0.1 &&
+        event.translationX > width * 0.1
+      ) {
+        // RIGHT TOP
+        translateY.value = withSpring(-containerHeight * 0.3);
+        translateX.value = withSpring(width * 0.3);
+      } else if (
+        event.translationY < -containerHeight * 0.1 &&
+        event.translationX < -width * 0.1
+      ) {
+        // LEFT TOP
+        translateY.value = withSpring(-containerHeight * 0.3);
+        translateX.value = withSpring(-width * 0.3);
+      } else {
+        translateY.value = withSpring(containerHeight * 0.4);
+        translateX.value = withSpring(width * 0.25);
+      }
+    })
+    .shouldCancelWhenOutside(true);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -47,7 +74,7 @@ const MeetView = () => {
           paddingHorizontal: 8,
           alignItems: "center",
           justifyContent: "center",
-          height: height * 0.7,
+          height: containerHeight,
         }}
       >
         <Animated.View style={[styles.contact, animatedStyle]} />
