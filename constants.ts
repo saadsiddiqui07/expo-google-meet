@@ -21,6 +21,7 @@ export const DATA = [
     id: 1,
     name: "Nathan",
     color: "#38bdf8",
+    speaking: true,
   },
   {
     id: 2,

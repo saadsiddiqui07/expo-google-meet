@@ -42,21 +42,28 @@ export default function App() {
     })
     .onFinalize((event) => {
       if (
-        event.translationY > height * 0.1 &&
+        event.translationY > containerHeight * 0.1 &&
+        event.translationX > width * 0.1
+      ) {
+        // RIGHT BOTTOM
+        translateY.value = withSpring(containerHeight * 0.3);
+        translateX.value = withSpring(width * 0.3);
+      } else if (
+        event.translationY > containerHeight * 0.1 &&
         event.translationX < -width * 0.1
       ) {
         // LEFT BOTTOM
         translateY.value = withSpring(containerHeight * 0.3);
         translateX.value = withSpring(-width * 0.3);
       } else if (
-        event.translationY < -height * 0.1 &&
+        event.translationY < -containerHeight * 0.1 &&
         event.translationX > width * 0.1
       ) {
         // RIGHT TOP
         translateY.value = withSpring(-containerHeight * 0.4);
         translateX.value = withSpring(width * 0.3);
       } else if (
-        event.translationY < -height * 0.1 &&
+        event.translationY < -containerHeight * 0.1 &&
         event.translationX < -width * 0.1
       ) {
         // LEFT TOP
@@ -64,8 +71,8 @@ export default function App() {
         translateX.value = withSpring(-width * 0.3);
       } else {
         // DEFAULT POSITION
-        translateY.value = withSpring(containerHeight * 0.3);
-        translateX.value = withSpring(width * 0.3);
+        translateY.value = withSpring(0);
+        translateX.value = withSpring(0);
       }
     });
 

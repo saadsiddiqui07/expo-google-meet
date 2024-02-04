@@ -21,7 +21,12 @@ const MeetView = () => {
         data={DATA}
         keyExtractor={(item) => `${item.id}`}
         renderItem={({ item, index }) => (
-          <People key={index} name={item.name} color={item.color} />
+          <People
+            key={index}
+            name={item.name}
+            color={item.color}
+            speaking={item.speaking}
+          />
         )}
       />
     </View>

@@ -3,20 +3,32 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { height, width } from "../constants";
 
-const People = ({ name, color }: { name: string; color: string }) => {
+const People = ({
+  name,
+  color,
+  speaking,
+}: {
+  name: string;
+  color: string;
+  speaking?: boolean;
+}) => {
   return (
-    <View style={styles.main}>
+    <View style={speaking ? styles.active : styles.main}>
       <TouchableOpacity
         activeOpacity={0.8}
         style={{
-          backgroundColor: "#64748b",
+          backgroundColor: speaking ? "white" : "#64748b",
           padding: 8,
           borderRadius: 999,
           alignSelf: "center",
           marginLeft: "auto",
         }}
       >
-        <Ionicons name="mic-off-outline" size={18} color={"white"} />
+        <Ionicons
+          name={speaking ? "mic-outline" : "mic-off-outline"}
+          size={22}
+          color={speaking ? "#2563eb" : "white"}
+        />
       </TouchableOpacity>
       <View
         style={{
@@ -54,5 +66,15 @@ const styles = StyleSheet.create({
     height: height * 0.22,
     width: width * 0.45,
     marginTop: 20,
+  },
+  active: {
+    backgroundColor: "#334155",
+    padding: 10,
+    borderRadius: 10,
+    height: height * 0.22,
+    width: width * 0.45,
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: "#64748b",
   },
 });
